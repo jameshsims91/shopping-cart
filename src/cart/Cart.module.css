@@ -1,0 +1,16 @@
+:root {
+  --text: 20px;
+  --heading: system-ui, 'Segoe UI', sans-serif;
+  --shadow: rgba(0, 0, 0, 0.5) 0 3px 3px;
+  --border: 2px solid #5e5c5c; 
+  --background: darkgray;
+  --color: black;
+}
+
+.cartContainer {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  width: 100%;
+  text-decoration: underline;
+}

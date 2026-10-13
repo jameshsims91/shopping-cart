@@ -1,9 +1,9 @@
-import styles from './Home.modules.css'
+import styles from './Home.module.css'
 
 function Home() {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.mainTitle}>Merch</h1>
+    <div className={styles.homeContainer}>
+      <h1 className={styles.title}>Checkout the Merch!</h1>
     </div>
   )
 }
