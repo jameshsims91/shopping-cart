@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router'
 import App from './App'
-import Home from './home/Home'
-import Shop from './shop/Shop'
+import Home from './products/home/Home'
+import Shop from './products/shop/Shop'
 import Cart from './cart/Cart'
 import ErrorPage from './error/ErrorPage'
 
