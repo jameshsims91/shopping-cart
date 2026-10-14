@@ -1,0 +1,133 @@
+.shopContainer {
+  width: 100%;
+}
+
+.title {
+  margin: 0 0 12px;
+  color: var(--color-text);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  text-align: center;
+}
+
+.text {
+  margin: 0 0 32px;
+  color: var(--color-muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.merchGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.merchCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.merchCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(27, 39, 65, 0.12);
+}
+
+.productImage {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  object-position: center;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.itemName {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.2rem;
+}
+
+.itemPrice {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.quantityBtn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: #f8fafc;
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.quantityBtn:hover:not(:disabled) {
+  background: #eaf1ff;
+  border-color: var(--color-primary);
+}
+
+.quantityInput {
+  width: 64px;
+  padding: 9px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.addToCartBtn {
+  margin-top: auto;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 9px;
+  background: var(--color-primary);
+  color: white;
+  font-weight: 700;
+}
+
+.addToCartBtn:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+@media (max-width: 750px) {
+  .merchGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .productImage {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .merchGrid {
+    grid-template-columns: 1fr;
+  }
+}

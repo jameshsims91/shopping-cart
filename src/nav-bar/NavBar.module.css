@@ -1,48 +1,59 @@
-:root {
-  --text: black;
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --text-h: white; 
-}
-
 .navBar {
-  justify-content: space-around;
-  align-items: center;
+  width: 100%;
+  background: #172033;
+  padding: 14px 24px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.15);
 }
 
 .navList {
   display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
   width: 100%;
-  gap: 5px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
 }
 
 .navItem {
   flex: 1;
+  max-width: 220px;
   text-align: center;
-  margin: 0; 
 }
 
 .noUnderline {
   display: block;
-  padding: 12px 20px;
+  padding: 12px 18px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: #f8fafc;
   text-decoration: none;
-  color: var(--text);
-  border: 2px solid transparent;
-  border-radius: 5px;
-  background-color: darkgray;
-  font: var(--sans);
-  font-size: 30px;
-  font-weight: bold;
-  text-shadow: rgba(0,0,0,0.5) 0 3px 3px;
-  transition: transform 0.2s ease; background-color: 0.2s ease;
+  font-size: 18px;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .noUnderline:hover {
-  background-color: rgba(65, 147, 219, 0.685);
-  color: var(--text);
-  transform: scale(1.066);
-  box-shadow: rgba(0, 0, 0, 0.128) 0 10px 5px;
-  text-shadow: none;
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .navBar {
+    padding: 10px 12px;
+  }
+
+  .navList {
+    gap: 6px;
+  }
+
+  .noUnderline {
+    padding: 10px 6px;
+    font-size: 15px;
+  }
 }
