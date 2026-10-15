@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
-import { useCart } from '../../useCart'
+import { useMemo } from 'react'
 import { useProducts } from '../../useProducts'
+import ProductCard from '../ProductCard'
 import styles from './Home.module.css'
 
 const pageSeed = Math.floor(Math.random() * 4294967296)
@@ -26,33 +26,11 @@ function getRandomFeaturedProducts(products, seed) {
 }
 
 function Home() {
-  const { addToCart } = useCart()
   const { products, loading, error } = useProducts()
-
-  const [quantities, setQuantities] = useState({})
-
   const featuredProducts = useMemo(
     () => getRandomFeaturedProducts(products, pageSeed),
     [products]
   )
-
-  const changeQuantity = (id, value) => {
-    const amount = Math.max(0, Math.floor(Number(value) || 0))
-
-    setQuantities((previous) => ({
-      ...previous,
-      [id]: amount,
-    }))
-  }
-
-  const handleAddToCart = (product) => {
-    const quantity = quantities[product.id] || 0
-
-    if (quantity === 0) return
-
-    addToCart(product, quantity)
-    changeQuantity(product.id, 0)
-  }
 
   if (loading) {
     return (
@@ -89,69 +67,10 @@ function Home() {
 
       <div className={styles.productGrid}>
         {featuredProducts.map((product) => (
-          <article className={styles.productCard} key={product.id}>
-            <img
-              className={styles.productImage}
-              src={product.image}
-              alt={product.name}
-            />
-
-            <h2>{product.name}</h2>
-
-            <p>${product.price.toFixed(2)}</p>
-
-            <div className={styles.quantityControls}>
-              <button
-                type='button'
-                className={styles.quantityBtn}
-                disabled={!quantities[product.id]}
-                onClick={() =>
-                  changeQuantity(
-                    product.id,
-                    (quantities[product.id] || 0) -1
-                  )
-                }
-                aria-label={`Decrease ${product.name} quantity`}
-              >
-                -
-              </button>
-
-              <input
-                className={styles.quantityInput}
-                type='number'
-                min='0'
-                step='1'
-                value={quantities[product.id] || 0}
-                onChange={(e) => 
-                  changeQuantity(product.id, e.target.value)
-                }
-                aria-label={`${product.name} quantity`}
-              />
-
-              <button
-                type='button'
-                className={styles.quantityBtn}
-                onClick={() =>
-                  changeQuantity(
-                    product.id,
-                    (quantities[product.id] || 0) + 1
-                  )
-                }
-                aria-label={`Increase ${product.name} quantity`}
-              >
-                +
-              </button>
-            </div>
-
-            <button
-              type='button'
-              className={styles.addToCartBtn}
-              disabled={!quantities[product.id]}
-              onClick={() => handleAddToCart(product)}
-            >
-              Add to Cart
-            </button>
-          </article>
+          <ProductCard
+            key={product.id}
+            product={product}
+          />
         ))}
       </div>
     </div>
