@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import styles from './Shop.module.css'
-import Products from '../Products'
+import { useProducts } from '../../useProducts'
 import { useCart } from '../../useCart'
 
 const Shop = () => {
   const [quantities, setQuantities] = useState({})
   const { addToCart } = useCart()
+  const { products, loading, error } = useProducts()
 
   const changeQuantity = (id, value) => {
     const amount = Math.max(0, Math.floor(Number(value) || 0))
@@ -16,13 +17,40 @@ const Shop = () => {
     }))
   }
 
+  if (loading) {
+    return (
+      <div className={styles.shopContainer}>
+        <h1 className={styles.title}>Welcome to the Shop</h1>
+        <p role='status'>Loading products...</p>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className={styles.shopContainer}>
+        <h1 className={styles.title}>Welcome to the Shop</h1>
+        <p role='alert'>Unable to load products. Please try again later.</p>
+      </div>
+    )
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className={styles.shopContainer}>
+        <h1 className={styles.title}>Wlecome to the Shop</h1>
+        <p>No products available.</p>
+      </div>
+    )
+  }
+
   return (
     <div className={styles.shopContainer}>
       <h1 className={styles.title}>Welcome to the Shop</h1>
       <p className={styles.text}>Browse our awesome products here!</p>
 
       <div className={styles.merchGrid}>
-        {Products.map((item) => (
+        {products.map((item) => (
           <div className={styles.merchCard} key={item.id}>
             <img
               className={styles.productImage}

@@ -1,11 +1,36 @@
 
 import { render, screen, within, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, test, expect } from 'vitest'
+import { beforeEach, describe, test, expect, vi } from 'vitest'
 import { CartProvider } from '../src/CartProvider'
 import { useCart } from '../src/useCart'
 import Shop from '../src/products/shop/Shop'
-import Products from '../src/products/Products'
+import { useProducts } from '../src/useProducts'
+
+vi.mock('../src/useProducts', () => ({
+  useProducts: vi.fn(),
+}))
+
+const mockProducts = [
+  {
+    id: 1, 
+    name: 'Weapon X Hoodie',
+    price: 40.00,
+    image: 'https://example.com/hoodie.jpg',
+    description: 'A comfortable hoodie',
+    category: 'clothing',
+    featured: false,
+  },
+  {
+    id: 2,
+    name: 'Classic Backpack',
+    price: 29.99,
+    image: 'https://example.com/backpack.jpg',
+    description: 'An everyday backpack',
+    category: 'accessories',
+    featured: false,
+  },
+]
 
 function ShopTestWrapper() {
   const { cartItems, cartCount, cartTotal } = useCart()
@@ -34,6 +59,13 @@ function getProductCard(productName) {
 }
 
 describe('Shop', () => {
+  beforeEach(() => {
+    vi.mocked(useProducts).mockReturnValue({
+      products: mockProducts,
+      loading: false,
+      error: null,
+    })
+  })
   test('renders the shop heading and description', () => {
     renderShop()
 
@@ -49,19 +81,18 @@ describe('Shop', () => {
   test('renders every product in the catalog', () => {
     renderShop()
 
-    expect(Products).toHaveLength(16)
+    const headings = screen.getAllByRole('heading', { 
+      level: 2,
+    })
 
-    const headings = screen.getAllByRole('heading', { level: 2 })
+    expect(headings).toHaveLength(mockProducts.length)
 
-    expect(headings).toHaveLength(Products.length)
-
-    const renderedNames = headings.map((heading) => heading.textContent.trim())
-
-    Products.forEach((product) => {
+    mockProducts.forEach((product) => {
       expect(
-        renderedNames,
-        `Expected "${product.name.trim()}" to appear in the shop`
-      ).toContain(product.name.trim())
+        screen.getByRole('heading', {
+          name: product.name,
+        }),
+      ).toBeInTheDocument()
     })
   })
 
