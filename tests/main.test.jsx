@@ -1,4 +1,4 @@
-import { beforeEach, describe, test, expect, vi } from 'vitest'
+import { beforeEach, afterEach, describe, test, expect, vi } from 'vitest'
 import { act } from 'react'
 import { createRoot } from 'react-dom/client'
 import { StrictMode } from 'react'
@@ -34,8 +34,6 @@ describe('main entry point', () => {
   })
 
   test('mounts the application in the root element', async () => {
-    const { default: App } = await import('../src/App')
-
     await act(async () => {
       root.render(
         <StrictMode>
