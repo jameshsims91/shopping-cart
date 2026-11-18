@@ -15,7 +15,11 @@ const routes = createBrowserRouter([
       { path: 'shop', element: <Shop /> },
       { path: 'cart', element: <Cart /> },
     ]
-  }
-])
+   }
+ ]
+ {
+   basename: '/shopping-cart',
+ }
+)
 
 export default routes;
