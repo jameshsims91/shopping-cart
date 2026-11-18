@@ -14,9 +14,9 @@ const routes = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'shop', element: <Shop /> },
       { path: 'cart', element: <Cart /> },
-    ]
-   }
- ]
+    ],
+   },
+ ],
  {
    basename: '/shopping-cart',
  }
